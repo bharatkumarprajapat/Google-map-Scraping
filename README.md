@@ -31,4 +31,49 @@ python main.py -l "San Francisco" -s "Coffee Shops" -t 5
 │── 📄 README.md        # Project documentation
 │── 📂 output/          # Folder where scraped data is stored
 
+📌 Code Overview
+🔹 Business Data Model (Dataclasses)
+python
+Copy
+Edit
+@dataclass
+class Business:
+    name: str = None
+    address: str = None
+    website: str = None
+    phone_number: str = None
+🔹 Extracting Business Details
+python
+Copy
+Edit
+name_xpath = '//h1[contains(@class, "DUwDvf")]'
+address_xpath = '//button[contains(@data-item-id, "address")]//div[contains(@class, "fontBodyMedium")]'
+website_xpath = '//a[contains(@data-item-id, "authority")]//div[contains(@class, "fontBodyMedium")]'
+phone_number_xpath = '//button[contains(@data-item-id, "phone:tel:")]//div[contains(@class, "fontBodyMedium")]'
+🔹 Saving Data to Excel and CSV
+python
+Copy
+Edit
+def save_to_excel(self, filename):
+    self.dataframe().to_excel(f"output/{filename}.xlsx", index=False)
 
+def save_to_csv(self, filename):
+    self.dataframe().to_csv(f"output/{filename}.csv", index=False)
+📌 Example Output
+📁 Saved Files
+
+lua
+Copy
+Edit
+📂 output/
+│── 📄 google_maps_data.xlsx
+│── 📄 google_maps_data.csv
+💡 Sample Data Extracted
+
+Name	Address	Website	Phone Number
+XYZ Restaurant	123 Main St, NY	xyz.com	+1 234 567 890
+ABC Cafe	456 Elm St, SF	abccafe.com	+1 987 654 321
+🛠️ Future Improvements
+✅ Add headless mode for faster execution
+✅ Extract ratings & reviews
+✅ Improve error handling
